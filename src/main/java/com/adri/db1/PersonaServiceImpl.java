@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PersonaServiceImpl implements IPersonaService{
@@ -27,13 +26,18 @@ public class PersonaServiceImpl implements IPersonaService{
     public PersonaOutputDTO getPersonaById(Integer id) throws Exception {
         PersonaEntity persona = repository.findById(id)
                 .orElseThrow(() -> new Exception("No se ha encontrado ninguna persona con id " + id));
-        PersonaOutputDTO personaOut = new PersonaOutputDTO(persona);
-        return personaOut;
+        return new PersonaOutputDTO(persona);
     }
 
     @Override
-    public PersonaOutputDTO getPersonaByName(String nombre) throws Exception {
-        return null;
+    public List<PersonaOutputDTO> getPersonaByName(String nombre) throws Exception {
+        PersonaEntity personaToFind = new PersonaEntity();
+        personaToFind.setName(nombre);
+        List<PersonaOutputDTO> listaSalida = new ArrayList<>();
+        repository.findAll(Example.of(personaToFind)).forEach(pE->{
+            listaSalida.add(new PersonaOutputDTO(pE));
+        });
+        return listaSalida;
     }
 
     @Override

@@ -1,11 +1,13 @@
 package com.adri.db1.model;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+
 
 @Data
 @NoArgsConstructor
@@ -30,7 +32,7 @@ public class PersonaEntity {
     @Column @NotNull
     private String city;
     @Column @NotNull
-    private boolean active;
+    private Boolean active;
     @Column @NotNull
     private Date created_date;
     @Column

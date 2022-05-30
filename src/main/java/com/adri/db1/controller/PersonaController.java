@@ -26,7 +26,7 @@ public class PersonaController {
         return personaService.getPersonaById(id);
     }
     @GetMapping("/nombre/{nombre}")
-    public PersonaOutputDTO getPersonaByName(@PathVariable("nombre") String nombre) throws Exception{
+    public List<PersonaOutputDTO> getPersonaByName(@PathVariable("nombre") String nombre) throws Exception{
         return personaService.getPersonaByName(nombre);
     }
     @GetMapping("/all")

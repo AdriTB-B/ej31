@@ -11,7 +11,7 @@ public interface IPersonaService {
 
     //READ
     PersonaOutputDTO getPersonaById(Integer id) throws Exception;
-    PersonaOutputDTO getPersonaByName(String nombre) throws Exception;
+    List<PersonaOutputDTO> getPersonaByName(String nombre) throws Exception;
     List<PersonaOutputDTO> getPersonas();
 
     //UPDATE

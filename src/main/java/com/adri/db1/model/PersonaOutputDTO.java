@@ -13,7 +13,7 @@ public class PersonaOutputDTO {
     private String company_email;
     private String personal_email;
     private String city;
-    private boolean active;
+    private Boolean active;
     private Date created_date;
     private String imagen_url;
     private Date termination_date;
@@ -26,7 +26,7 @@ public class PersonaOutputDTO {
         setCompany_email(persona.getCompany_email());
         setPersonal_email(persona.getPersonal_email());
         setCity(persona.getCity());
-        setActive(persona.isActive());
+        setActive(persona.getActive());
         setCreated_date(persona.getCreated_date());
         setImagen_url(persona.getImagen_url());
         setTermination_date(persona.getTermination_date());
