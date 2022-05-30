@@ -40,8 +40,8 @@ public class PersonaEntity {
 
     public PersonaEntity(PersonaInputDTO personaIn) throws Exception{
         if(personaIn.getUsuario() != null
-                && personaIn.getUsuario().length() < 10
-                && personaIn.getUsuario().length() > 6
+                && personaIn.getUsuario().length() <= 10
+                && personaIn.getUsuario().length() >= 6
         ){
             setUsuario(personaIn.getUsuario());
         }else{
