@@ -11,5 +11,4 @@ import java.util.List;
 @Repository
 public interface IPersonaRepository extends JpaRepository<PersonaEntity, Integer> {
     List<PersonaEntity> findByName(String nombre);
-    void deleteById(Integer id);
 }
