@@ -1,7 +1,6 @@
 package com.adri.db1.domain;
 
 
-import com.adri.db1.domain.PersonaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
