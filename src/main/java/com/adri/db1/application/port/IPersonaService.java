@@ -1,7 +1,7 @@
-package com.adri.db1;
+package com.adri.db1.application.port;
 
-import com.adri.db1.model.PersonaInputDTO;
-import com.adri.db1.model.PersonaOutputDTO;
+import com.adri.db1.infraestructure.dto.input.PersonaInputDTO;
+import com.adri.db1.infraestructure.dto.output.PersonaOutputDTO;
 
 import java.util.List;
 
@@ -15,8 +15,8 @@ public interface IPersonaService {
     List<PersonaOutputDTO> getPersonas();
 
     //UPDATE
-    String updatePersona(PersonaInputDTO personaIn) throws Exception;
+    PersonaOutputDTO updatePersona(Integer id, PersonaInputDTO personaIn) throws Exception;
 
     //DELETE
-    String deletePersona(int id) throws Exception;
+    void deletePersona(Integer id) throws Exception;
 }

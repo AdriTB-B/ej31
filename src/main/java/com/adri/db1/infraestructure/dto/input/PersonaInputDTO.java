@@ -1,4 +1,4 @@
-package com.adri.db1.model;
+package com.adri.db1.infraestructure.dto.input;
 
 import lombok.Data;
 

@@ -1,5 +1,6 @@
-package com.adri.db1.model;
+package com.adri.db1.infraestructure.dto.output;
 
+import com.adri.db1.domain.PersonaEntity;
 import lombok.Data;
 
 import java.util.Date;

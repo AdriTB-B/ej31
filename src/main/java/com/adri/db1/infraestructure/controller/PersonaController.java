@@ -1,11 +1,9 @@
-package com.adri.db1.controller;
+package com.adri.db1.infraestructure.controller;
 
-import com.adri.db1.IPersonaService;
-import com.adri.db1.model.PersonaInputDTO;
-import com.adri.db1.model.PersonaOutputDTO;
+import com.adri.db1.application.port.IPersonaService;
+import com.adri.db1.infraestructure.dto.input.PersonaInputDTO;
+import com.adri.db1.infraestructure.dto.output.PersonaOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,5 +30,15 @@ public class PersonaController {
     @GetMapping("/all")
     public List<PersonaOutputDTO> getPersonas() throws Exception{
         return personaService.getPersonas();
+    }
+
+    @PutMapping("/{id}")
+    public PersonaOutputDTO updatePersonaById(@RequestBody PersonaInputDTO personaIn, @PathVariable("id")Integer id) throws Exception{
+        return personaService.updatePersona(id, personaIn);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletePersonaById(@PathVariable("id") Integer id) throws Exception {
+        personaService.deletePersona(id);
     }
 }
