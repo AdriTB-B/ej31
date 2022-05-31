@@ -1,7 +1,7 @@
 package com.adri.db1.application;
 
 import com.adri.db1.application.port.UpdatePersonaPort;
-import com.adri.db1.domain.IPersonaRepository;
+import com.adri.db1.infraestructure.repository.PersonaRepository;
 import com.adri.db1.domain.PersonaEntity;
 import com.adri.db1.infraestructure.dto.input.PersonaInputDTO;
 import com.adri.db1.infraestructure.dto.output.PersonaOutputDTO;
@@ -12,7 +12,7 @@ import org.springframework.web.HttpMediaTypeNotAcceptableException;
 @Service
 public class UpdatePersonaUseCase implements UpdatePersonaPort {
     @Autowired
-    IPersonaRepository repository;
+    PersonaRepository repository;
 
     @Override
     public PersonaOutputDTO updatePersona(Integer id, PersonaInputDTO personaIn) throws Exception {
