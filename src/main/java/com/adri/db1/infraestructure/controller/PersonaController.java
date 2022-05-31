@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping("/persona")
@@ -23,7 +24,7 @@ public class PersonaController {
     DeletePersonaPort deletePersona;
 
     @PostMapping("/addPersona")
-    public PersonaOutputDTO addPersona(@RequestBody PersonaInputDTO personaIn) throws Exception{
+    public PersonaOutputDTO addPersona(@Valid @RequestBody PersonaInputDTO personaIn) throws Exception{
         return createPersona.addPersona(personaIn);
     }
 

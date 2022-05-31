@@ -17,63 +17,37 @@ public class PersonaEntity {
     @Id
     @GeneratedValue
     private Integer id_persona;
-    @Column @NotNull
+    @Column
     private String usuario;
-    @Column @NotNull
+    @Column
     private String password;
-    @Column @NotNull
+    @Column
     private String name;
     @Column
     private String surname;
-    @Column @NotNull
+    @Column
     private String company_email;
-    @Column @NotNull
+    @Column
     private String personal_email;
-    @Column @NotNull
+    @Column
     private String city;
-    @Column @NotNull
+    @Column
     private Boolean active;
-    @Column @NotNull
+    @Column
     private Date created_date;
     @Column
     private String imagen_url;
     @Column
     private Date termination_date;
 
-    public PersonaEntity(PersonaInputDTO personaIn) throws Exception{
-        if(personaIn.getUsuario() != null
-                && personaIn.getUsuario().length() <= 10
-                && personaIn.getUsuario().length() >= 6
-        ){
-            setUsuario(personaIn.getUsuario());
-        }else{
-            throw new Exception("El campo usuario debe tener entre 6 y 10 caracteres");
-        }
-        if(personaIn.getName() == null){
-            throw new Exception("El campo nombre no puede estar vacío");
-        }else{
-            setName(personaIn.getName());
-        }
-        if(personaIn.getPassword() == null){
-            throw new Exception("El campo contraseña no puede estar vacío");
-        }else{
-            setPassword(personaIn.getPassword());
-        }
-        if(personaIn.getCompany_email() == null){
-            throw new Exception("El campo email de compañia no puede estar vacío");
-        }else{
-            setCompany_email(personaIn.getCompany_email());
-        }
-        if(personaIn.getPersonal_email() == null){
-            throw new Exception("El campo email personal no puede estar vacío");
-        }else{
-            setPersonal_email(personaIn.getPersonal_email());
-        }
-        if(personaIn.getCity() == null){
-            throw new Exception("El campo ciudad no puede estar vacío");
-        }else{
-            setCity(personaIn.getCity());
-        }
+    public PersonaEntity(PersonaInputDTO personaIn) throws Exception {
+        //Validaciones en en PersonaInputDTO
+        setUsuario(personaIn.getUsuario());
+        setName(personaIn.getName());
+        setPassword(personaIn.getPassword());
+        setCompany_email(personaIn.getCompany_email());
+        setPersonal_email(personaIn.getPersonal_email());
+        setCity(personaIn.getCity());
         setCreated_date(new Date());
         setActive(true);
         setImagen_url(personaIn.getImagen_url());
@@ -81,31 +55,31 @@ public class PersonaEntity {
     }
 
     public void update(PersonaInputDTO personaIn) throws Exception {
-        if(personaIn.getUsuario() != null
+        if (personaIn.getUsuario() != null
                 && personaIn.getUsuario().length() <= 10
                 && personaIn.getUsuario().length() >= 6
-        ){
+        ) {
             setUsuario(personaIn.getUsuario());
         }
-        if(personaIn.getName() != null){
+        if (personaIn.getName() != null) {
             setName(personaIn.getName());
         }
-        if(personaIn.getPassword() != null){
+        if (personaIn.getPassword() != null) {
             setPassword(personaIn.getPassword());
         }
-        if(personaIn.getCompany_email() != null){
+        if (personaIn.getCompany_email() != null) {
             setCompany_email(personaIn.getCompany_email());
         }
-        if(personaIn.getPersonal_email() != null){
+        if (personaIn.getPersonal_email() != null) {
             setPersonal_email(personaIn.getPersonal_email());
         }
-        if(personaIn.getCity() != null){
+        if (personaIn.getCity() != null) {
             setCity(personaIn.getCity());
         }
-        if(personaIn.getSurname() != null){
+        if (personaIn.getSurname() != null) {
             setSurname(personaIn.getSurname());
         }
-        if(personaIn.getImagen_url() != null){
+        if (personaIn.getImagen_url() != null) {
             setImagen_url(personaIn.getImagen_url());
         }
     }
