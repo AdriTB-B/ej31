@@ -5,5 +5,5 @@ import com.adri.db1.infraestructure.dto.output.PersonaOutputDTO;
 
 
 public interface CreatePersonaPort {
-    PersonaOutputDTO addPersona(PersonaInputDTO personaIn) throws Exception;
+    PersonaOutputDTO addPersona(PersonaInputDTO personaIn);
 }

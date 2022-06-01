@@ -3,11 +3,19 @@ package com.adri.db1.infraestructure.controller;
 import com.adri.db1.application.port.*;
 import com.adri.db1.infraestructure.dto.input.PersonaInputDTO;
 import com.adri.db1.infraestructure.dto.output.PersonaOutputDTO;
+import com.adri.db1.infraestructure.exception.CustomError;
+import com.adri.db1.infraestructure.exception.NotFoundException;
+import com.adri.db1.infraestructure.exception.UnprocesableException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+
 import javax.validation.Valid;
+import javax.validation.ValidationException;
+import java.util.Date;
 import java.util.List;
 
 @RequestMapping("/persona")
@@ -23,17 +31,13 @@ public class PersonaController {
     DeletePersonaPort deletePersona;
 
     @PostMapping("/addPersona")
-    public PersonaOutputDTO addPersona(@Valid @RequestBody PersonaInputDTO personaIn) throws Exception{
+    public PersonaOutputDTO addPersona(@Valid @RequestBody PersonaInputDTO personaIn) {
         return createPersona.addPersona(personaIn);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PersonaOutputDTO> getPersonaById(@PathVariable("id") Integer id) {
-        try{
-            return new ResponseEntity<>(readPersona.getPersonaById(id), HttpStatus.OK);
-        }catch(Exception e){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public PersonaOutputDTO getPersonaById(@PathVariable("id") Integer id) {
+        return readPersona.getPersonaById(id);
     }
     @GetMapping("/nombre/{nombre}")
     public List<PersonaOutputDTO> getPersonaByName(@PathVariable("nombre") String nombre) throws Exception{
@@ -45,30 +49,15 @@ public class PersonaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PersonaOutputDTO> updatePersonaById(
+    public PersonaOutputDTO updatePersonaById(
             @Valid @RequestBody PersonaInputDTO personaIn,
             @PathVariable("id")Integer id
     ) {
-        try{
-            return new ResponseEntity<>(updatePersona.updatePersona(id, personaIn), HttpStatus.OK);
-        }catch(Exception e){
-            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-        }
+        return updatePersona.updatePersona(id, personaIn);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deletePersonaById(@PathVariable("id") Integer id) {
-        try{
-            deletePersona.deletePersona(id);
-            return new ResponseEntity<>(
-                    "Se ha eliminado la persona con id " + id + " correctamente",
-                    HttpStatus.OK
-            );
-        }catch(Exception e){
-            return new ResponseEntity<>(
-                    "No se ha encontrado ninguna persona con id " + id + " que eliminar",
-                    HttpStatus.NOT_FOUND
-            );
-        }
+    public void deletePersonaById(@PathVariable("id") Integer id) {
+        deletePersona.deletePersona(id);
     }
 }

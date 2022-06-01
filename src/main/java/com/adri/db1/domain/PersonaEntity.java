@@ -40,7 +40,7 @@ public class PersonaEntity {
     @Column
     private Date termination_date;
 
-    public PersonaEntity(PersonaInputDTO personaIn) throws Exception {
+    public PersonaEntity(PersonaInputDTO personaIn) {
         //Validaciones en en PersonaInputDTO
         setUsuario(personaIn.getUsuario());
         setName(personaIn.getName());
@@ -54,7 +54,7 @@ public class PersonaEntity {
         setSurname(personaIn.getSurname());
     }
 
-    public void update(PersonaInputDTO personaIn) throws Exception {
+    public void update(PersonaInputDTO personaIn) {
         if (personaIn.getUsuario() != null
                 && personaIn.getUsuario().length() <= 10
                 && personaIn.getUsuario().length() >= 6

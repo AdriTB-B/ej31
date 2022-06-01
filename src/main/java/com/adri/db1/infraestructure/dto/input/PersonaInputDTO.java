@@ -1,6 +1,7 @@
 package com.adri.db1.infraestructure.dto.input;
 
 import lombok.Data;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.validation.constraints.*;
 

@@ -1,13 +1,13 @@
 package com.adri.db1.application;
 
 import com.adri.db1.application.port.ReadPersonaPort;
+import com.adri.db1.infraestructure.exception.NotFoundException;
 import com.adri.db1.infraestructure.repository.PersonaRepository;
 import com.adri.db1.domain.PersonaEntity;
 import com.adri.db1.infraestructure.dto.output.PersonaOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +18,9 @@ public class ReadPersonaUseCase implements ReadPersonaPort {
     PersonaRepository repository;
 
     @Override
-    public PersonaOutputDTO getPersonaById(Integer id) throws Exception {
+    public PersonaOutputDTO getPersonaById(Integer id) throws NotFoundException {
         PersonaEntity persona = repository.findById(id)
-                .orElseThrow(Exception::new);
+                .orElseThrow(()-> new NotFoundException("No se encuentra ninguna persona con id " + id));
         return new PersonaOutputDTO(persona);
     }
 

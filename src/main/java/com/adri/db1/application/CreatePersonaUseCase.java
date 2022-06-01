@@ -14,7 +14,7 @@ public class CreatePersonaUseCase implements CreatePersonaPort {
     PersonaRepository repository;
 
     @Override
-    public PersonaOutputDTO addPersona(PersonaInputDTO personaIn) throws Exception {
+    public PersonaOutputDTO addPersona(PersonaInputDTO personaIn){
         PersonaEntity persona = new PersonaEntity(personaIn);
         repository.save(persona);
         return new PersonaOutputDTO(persona);
