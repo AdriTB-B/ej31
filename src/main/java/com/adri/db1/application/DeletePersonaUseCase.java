@@ -15,9 +15,7 @@ public class DeletePersonaUseCase implements DeletePersonaPort {
     @Override
     public void deletePersona(Integer id) throws Exception {
         PersonaEntity persona = repository.findById(id)
-                .orElseThrow(()->new HttpMediaTypeNotAcceptableException(
-                        "No se ha encontrado ninguna persona con id " + id + " que eliminar"
-                ));
+                .orElseThrow(Exception::new);
         repository.delete(persona);
     }
 }

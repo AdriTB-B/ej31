@@ -20,15 +20,12 @@ public class ReadPersonaUseCase implements ReadPersonaPort {
     @Override
     public PersonaOutputDTO getPersonaById(Integer id) throws Exception {
         PersonaEntity persona = repository.findById(id)
-                .orElseThrow(() -> new HttpClientErrorException( //Lanza un 500 y debe lanzar un 404
-                        HttpStatus.NOT_FOUND,
-                        "No se ha encontrado ninguna persona con id " + id
-                ));
+                .orElseThrow(Exception::new);
         return new PersonaOutputDTO(persona);
     }
 
     @Override
-    public List<PersonaOutputDTO> getPersonaByName(String nombre) throws Exception {
+    public List<PersonaOutputDTO> getPersonaByName(String nombre) {
         List<PersonaOutputDTO> listaSalida = new ArrayList<>();
         repository.findByName(nombre).forEach(pE->{
             listaSalida.add(new PersonaOutputDTO(pE));
