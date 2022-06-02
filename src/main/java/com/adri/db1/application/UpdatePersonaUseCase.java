@@ -16,7 +16,7 @@ public class UpdatePersonaUseCase implements UpdatePersonaPort {
     PersonaRepository repository;
 
     @Override
-    public PersonaOutputDTO updatePersona(Integer id, PersonaInputDTO personaIn) throws NotFoundException {
+    public PersonaOutputDTO updatePersona(String id, PersonaInputDTO personaIn) throws NotFoundException {
         PersonaEntity personaToUpdate = repository.findById(id)
                 .orElseThrow(()-> new NotFoundException("No se encuentra ninguna persona con id " + id));
         personaToUpdate.update(personaIn);

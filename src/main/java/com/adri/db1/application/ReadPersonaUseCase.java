@@ -18,7 +18,7 @@ public class ReadPersonaUseCase implements ReadPersonaPort {
     PersonaRepository repository;
 
     @Override
-    public PersonaOutputDTO getPersonaById(Integer id) throws NotFoundException {
+    public PersonaOutputDTO getPersonaById(String id) throws NotFoundException {
         PersonaEntity persona = repository.findById(id)
                 .orElseThrow(()-> new NotFoundException("No se encuentra ninguna persona con id " + id));
         return new PersonaOutputDTO(persona);

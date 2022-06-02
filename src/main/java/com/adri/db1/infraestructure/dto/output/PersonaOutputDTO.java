@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Data
 public class PersonaOutputDTO {
-    private Integer id_persona;
+    private String id_persona;
     private String usuario;
     private String name;
     private String surname;

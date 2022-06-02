@@ -9,6 +9,6 @@ import java.util.List;
 
 
 @Repository
-public interface PersonaRepository extends JpaRepository<PersonaEntity, Integer> {
+public interface PersonaRepository extends JpaRepository<PersonaEntity, String> {
     List<PersonaEntity> findByName(String nombre);
 }

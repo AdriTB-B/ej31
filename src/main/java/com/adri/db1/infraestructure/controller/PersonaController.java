@@ -27,7 +27,7 @@ public class PersonaController {
     }
 
     @GetMapping("/{id}")
-    public PersonaOutputDTO getPersonaById(@PathVariable("id") Integer id) {
+    public PersonaOutputDTO getPersonaById(@PathVariable("id") String id) {
         return readPersona.getPersonaById(id);
     }
     @GetMapping("/nombre/{nombre}")
@@ -42,13 +42,13 @@ public class PersonaController {
     @PutMapping("/{id}")
     public PersonaOutputDTO updatePersonaById(
             @Valid @RequestBody PersonaInputDTO personaIn,
-            @PathVariable("id")Integer id
+            @PathVariable("id")String id
     ) {
         return updatePersona.updatePersona(id, personaIn);
     }
 
     @DeleteMapping("/{id}")
-    public void deletePersonaById(@PathVariable("id") Integer id) {
+    public void deletePersonaById(@PathVariable("id") String id) {
         deletePersona.deletePersona(id);
     }
 }

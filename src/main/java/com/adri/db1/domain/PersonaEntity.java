@@ -3,9 +3,11 @@ package com.adri.db1.domain;
 import com.adri.db1.infraestructure.dto.input.PersonaInputDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 
@@ -15,8 +17,16 @@ import java.util.Date;
 @Table(name = "Personas")
 public class PersonaEntity {
     @Id
-    @GeneratedValue
-    private Integer id_persona;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "idGenerator")
+    @GenericGenerator(
+            name = "idGenerator",
+            strategy = "com.adri.db1.domain.IdPersonaSequenceIdGenerator",
+            parameters = {
+                    @Parameter(name = IdPersonaSequenceIdGenerator.INCREMENT_PARAM, value = "1"),
+                    @Parameter(name = IdPersonaSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "PER"),
+                    @Parameter(name = IdPersonaSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%04d")
+            })
+    private String id_persona;
     @Column
     private String usuario;
     @Column
