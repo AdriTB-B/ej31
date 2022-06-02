@@ -3,19 +3,10 @@ package com.adri.db1.infraestructure.controller;
 import com.adri.db1.application.port.*;
 import com.adri.db1.infraestructure.dto.input.PersonaInputDTO;
 import com.adri.db1.infraestructure.dto.output.PersonaOutputDTO;
-import com.adri.db1.infraestructure.exception.CustomError;
-import com.adri.db1.infraestructure.exception.NotFoundException;
-import com.adri.db1.infraestructure.exception.UnprocesableException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpClientErrorException;
 
 import javax.validation.Valid;
-import javax.validation.ValidationException;
-import java.util.Date;
 import java.util.List;
 
 @RequestMapping("/persona")

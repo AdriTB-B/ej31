@@ -1,9 +1,13 @@
 package com.adri.db1.infraestructure.exception;
 
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.GsonBuilderUtils;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import java.util.Date;
 
@@ -19,9 +23,25 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
         );
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
+//  Captura de excepción propia (Lanzamiento manual)
+//    @ExceptionHandler(UnprocesableException.class)
+//    public final ResponseEntity<CustomError> handleUnprocesabeException(UnprocesableException ex) {
+//        CustomError error = new CustomError(
+//                new Date(),
+//                422,
+//                ex.getMessage()
+//        );
+//        return new ResponseEntity<>(error, HttpStatus.UNPROCESSABLE_ENTITY);
+//    }
 
-    @ExceptionHandler(UnprocesableException.class)
-    public final ResponseEntity<CustomError> handleUnprocesabeException(UnprocesableException ex) {
+//  Captura de excepción automática de @Valid
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(
+            MethodArgumentNotValidException ex,
+            HttpHeaders headers,
+            HttpStatus status,
+            WebRequest request
+    ) {
         CustomError error = new CustomError(
                 new Date(),
                 422,
