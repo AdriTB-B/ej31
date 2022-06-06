@@ -31,7 +31,7 @@ public class EstudianteEntity {
     private String id_estudiante;
 
     @OneToOne
-    @JoinColumn(name = "id_persona")
+    @JoinColumn(name = "id_persona" ,unique = true)
     private PersonaEntity persona;
 
     @Column(name = "horas_por_semana")

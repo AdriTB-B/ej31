@@ -2,6 +2,7 @@ package com.adri.ej31.profesor.domain;
 
 import com.adri.ej31.persona.domain.PersonaEntity;
 import com.adri.ej31.StringSequenceIdGenerator;
+import com.adri.ej31.profesor.infrastructure.dto.input.ProfesorInputDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
@@ -28,7 +29,7 @@ public class ProfesorEntity {
     private String id_profesor;
 
     @OneToOne
-    @JoinColumn(name = "id_persona")
+    @JoinColumn(name = "id_persona" ,unique = true)
     private PersonaEntity persona;
 
     @Column(name = "coments")
@@ -36,4 +37,9 @@ public class ProfesorEntity {
 
     @Column(name = "branch") @NotNull
     private String rama;
+
+    public ProfesorEntity(ProfesorInputDTO profesor){
+        setComents(profesor.getComents());
+        setRama(profesor.getRama());
+    }
 }
