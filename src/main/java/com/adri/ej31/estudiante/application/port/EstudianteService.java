@@ -5,9 +5,11 @@ import com.adri.ej31.estudiante.infrastructure.dto.input.EstudianteInputDTO;
 import com.adri.ej31.estudiante.infrastructure.dto.output.EstudianteOutputDTO;
 
 public interface EstudianteService {
-    public EstudianteEntity findById(String id);
+    public EstudianteEntity findEstudianteById(String id);
 
     EstudianteOutputDTO save(EstudianteInputDTO estudiante);
 
     void deleteById(String id);
+
+    EstudianteOutputDTO update(String id, EstudianteInputDTO estudianteInputDTO);
 }

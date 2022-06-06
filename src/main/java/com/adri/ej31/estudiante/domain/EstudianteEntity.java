@@ -47,12 +47,18 @@ public class EstudianteEntity {
     @Column(name = "rama")
     private String rama;
 
-    @OneToMany(mappedBy = "id_study")
-    private List<Estudiante_EstudioEntity> estudios;
+//    @OneToMany(mappedBy = "id_study")
+//    private List<Estudiante_EstudioEntity> estudios;
 
     public EstudianteEntity(EstudianteInputDTO estudiante){
         setComents(estudiante.getComents());
         setRama(estudiante.getRama());
         setNum_hours_week(estudiante.getNum_hours_week());
+    }
+
+    public void update(EstudianteInputDTO estudianteIn) {
+        setComents(estudianteIn.getComents());
+        setRama(estudianteIn.getRama());
+        setNum_hours_week(estudianteIn.getNum_hours_week());
     }
 }

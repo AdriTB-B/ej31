@@ -1,6 +1,5 @@
 package com.adri.ej31.estudiante.infrastructure.controller;
 
-import com.adri.ej31.estudiante.domain.EstudianteEntity;
 import com.adri.ej31.estudiante.application.port.EstudianteService;
 import com.adri.ej31.estudiante.infrastructure.dto.input.EstudianteInputDTO;
 import com.adri.ej31.estudiante.infrastructure.dto.output.EstudianteFullOutputDTO;
@@ -9,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 
 @RestController
 @RequestMapping("/estudiante")
@@ -21,15 +21,23 @@ public class EstudianteController {
             @RequestParam(name = "outputType", defaultValue = "simple") String outputType)
     {
         if(outputType.equals("full")) {
-            return new EstudianteFullOutputDTO(service.findById(id));
+            return new EstudianteFullOutputDTO(service.findEstudianteById(id));
         }
         else {
-            return new EstudianteOutputDTO(service.findById(id));
+            return new EstudianteOutputDTO(service.findEstudianteById(id));
         }
     }
 
+    @PutMapping("/{id}")
+    public EstudianteOutputDTO updateEstudiante(
+            @PathVariable("id") String id,
+            @Valid @RequestBody EstudianteInputDTO estudianteInputDTO
+    ){
+        return  service.update(id, estudianteInputDTO);
+    }
+
     @PostMapping("/add")
-    public EstudianteOutputDTO addEstudiante(@RequestBody @Valid EstudianteInputDTO estudiante){
+    public EstudianteOutputDTO addEstudiante(@Valid @RequestBody EstudianteInputDTO estudiante){
         return service.save(estudiante);
     }
 
