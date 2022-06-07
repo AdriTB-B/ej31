@@ -5,11 +5,16 @@ import com.adri.ej31.estudiante.domain.EstudianteEntity;
 import com.adri.ej31.estudiante.infrastructure.dto.input.EstudianteInputDTO;
 import com.adri.ej31.estudiante.infrastructure.dto.output.EstudianteOutputDTO;
 import com.adri.ej31.estudiante.infrastructure.repository.EstudianteRepository;
+import com.adri.ej31.exception.NotAssignableRolException;
 import com.adri.ej31.exception.NotFoundException;
+import com.adri.ej31.persona.application.port.ReadPersonaPort;
 import com.adri.ej31.persona.domain.PersonaEntity;
 import com.adri.ej31.persona.infraestructure.repository.PersonaRepository;
+import com.adri.ej31.profesor.domain.ProfesorEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.lang.reflect.Type;
 
 @Service
 public class EstudianteServiceImpl implements EstudianteService {
@@ -17,6 +22,8 @@ public class EstudianteServiceImpl implements EstudianteService {
     EstudianteRepository estudianteRepo;
     @Autowired
     PersonaRepository personaRepo;
+    @Autowired
+    ReadPersonaPort readPersonaPort;
     @Override
     public EstudianteEntity findEstudianteById(String id) {
         return estudianteRepo.findById(id).orElseThrow(() -> new NotFoundException(
@@ -30,6 +37,10 @@ public class EstudianteServiceImpl implements EstudianteService {
                 .orElseThrow(()->new NotFoundException(
                         "No hay registrada ninguna persona con el id " + estudiante.getId_persona()
                 ));
+        Type rol = readPersonaPort.getRol(persona);
+        if(rol != null && rol.equals(ProfesorEntity.class)) {
+            throw new NotAssignableRolException("Esta persona ya esta asginada como profesor");
+        }
         EstudianteEntity estudianteEntity = new EstudianteEntity(estudiante);
         estudianteEntity.setPersona(persona);
         estudianteRepo.save(estudianteEntity);

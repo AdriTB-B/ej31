@@ -22,6 +22,16 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
         );
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(NotAssignableRolException.class)
+    public final ResponseEntity<CustomError> handleNotAssignableRolException(NotAssignableRolException ex) {
+        CustomError error = new CustomError(
+                new Date(),
+                406,
+                ex.getMessage()
+        );
+        return new ResponseEntity<>(error, HttpStatus.NOT_ACCEPTABLE);
+    }
 //  Captura de excepción propia (Lanzamiento manual)
 //    @ExceptionHandler(UnprocesableException.class)
 //    public final ResponseEntity<CustomError> handleUnprocesabeException(UnprocesableException ex) {

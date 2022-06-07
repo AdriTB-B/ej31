@@ -28,8 +28,8 @@ public class ProfesorEntity {
             })
     private String id_profesor;
 
-    @OneToOne
-    @JoinColumn(name = "id_persona" ,unique = true)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_persona")
     private PersonaEntity persona;
 
     @Column(name = "coments")

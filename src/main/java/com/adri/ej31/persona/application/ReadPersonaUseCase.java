@@ -1,5 +1,6 @@
 package com.adri.ej31.persona.application;
 
+import com.adri.ej31.estudiante.domain.EstudianteEntity;
 import com.adri.ej31.estudiante.infrastructure.repository.EstudianteRepository;
 import com.adri.ej31.persona.application.port.ReadPersonaPort;
 import com.adri.ej31.exception.NotFoundException;
@@ -12,17 +13,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ReadPersonaUseCase implements ReadPersonaPort {
     @Autowired
-    PersonaRepository repository;
+    PersonaRepository personaRepo;
+    @Autowired
+    EstudianteRepository estudianteRepo;
+    @Autowired
+    ProfesorRepository profesorRepo;
 
     @Override
     public PersonaOutputDTO getPersonaById(String id) throws NotFoundException {
-        PersonaEntity persona = repository.findById(id)
+        PersonaEntity persona = personaRepo.findById(id)
                 .orElseThrow(()-> new NotFoundException("No se encuentra ninguna persona con id " + id));
         return new PersonaOutputDTO(persona);
     }
@@ -30,7 +36,7 @@ public class ReadPersonaUseCase implements ReadPersonaPort {
     @Override
     public List<PersonaOutputDTO> getPersonaByName(String nombre) {
         List<PersonaOutputDTO> listaSalida = new ArrayList<>();
-        repository.findByName(nombre).forEach(pE->{
+        personaRepo.findByName(nombre).forEach(pE->{
             listaSalida.add(new PersonaOutputDTO(pE));
         });
         return listaSalida;
@@ -39,10 +45,17 @@ public class ReadPersonaUseCase implements ReadPersonaPort {
     @Override
     public List<PersonaOutputDTO> getPersonas() {
         List<PersonaOutputDTO> listaPersonaOut = new ArrayList<>();
-        repository.findAll().forEach(p->{
+        personaRepo.findAll().forEach(p->{
             PersonaOutputDTO pOut = new PersonaOutputDTO(p);
             listaPersonaOut.add(pOut);
         });
         return listaPersonaOut;
+    }
+
+    @Override
+    public Type getRol(PersonaEntity persona) {
+        if(profesorRepo.existsByPersona(persona)) return ProfesorEntity.class;
+        if(estudianteRepo.existsByPersona(persona)) return EstudianteEntity.class;
+        else return null;
     }
 }
