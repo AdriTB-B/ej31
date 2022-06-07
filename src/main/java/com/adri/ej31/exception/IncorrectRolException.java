@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
-public class NotAssignableRolException extends RuntimeException{
-    public NotAssignableRolException(String mensaje){
+public class IncorrectRolException extends RuntimeException{
+    public IncorrectRolException(String mensaje){
         super(mensaje);
     }
 }

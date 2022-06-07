@@ -7,7 +7,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 public interface ReadPersonaPort {
-    PersonaOutputDTO getPersonaById(String id);
+    PersonaEntity getPersonaById(String id);
     List<PersonaOutputDTO> getPersonaByName(String nombre) throws Exception;
     List<PersonaOutputDTO> getPersonas();
 }

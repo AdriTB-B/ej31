@@ -1,6 +1,6 @@
 package com.adri.ej31.profesor.application;
 
-import com.adri.ej31.exception.NotAssignableRolException;
+import com.adri.ej31.exception.IncorrectRolException;
 import com.adri.ej31.exception.NotFoundException;
 import com.adri.ej31.persona.domain.PersonaEntity;
 import com.adri.ej31.persona.infraestructure.repository.PersonaRepository;
@@ -56,7 +56,7 @@ public class ProfesorServiceImpl implements ProfesorService {
 
     private void checkRolAssigment(PersonaEntity persona){
         if(persona.getRolEstudiante() != null) {
-            throw new NotAssignableRolException("Esta persona ya esta asginada como estudiante");
+            throw new IncorrectRolException("Esta persona ya esta asginada como estudiante");
         }
     }
 }

@@ -2,10 +2,12 @@ package com.adri.ej31.persona.infraestructure.dto.output;
 
 import com.adri.ej31.persona.domain.PersonaEntity;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
 public class PersonaOutputDTO {
     private String id_persona;
     private String usuario;

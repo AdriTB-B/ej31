@@ -1,7 +1,7 @@
 package com.adri.ej31.exception.handler;
 
 import com.adri.ej31.exception.CustomError;
-import com.adri.ej31.exception.NotAssignableRolException;
+import com.adri.ej31.exception.IncorrectRolException;
 import com.adri.ej31.exception.NotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -26,8 +26,8 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(NotAssignableRolException.class)
-    public final ResponseEntity<CustomError> handleNotAssignableRolException(NotAssignableRolException ex) {
+    @ExceptionHandler(IncorrectRolException.class)
+    public final ResponseEntity<CustomError> handleNotAssignableRolException(IncorrectRolException ex) {
         CustomError error = new CustomError(
                 new Date(),
                 406,

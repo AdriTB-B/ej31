@@ -5,16 +5,12 @@ import com.adri.ej31.estudiante.domain.EstudianteEntity;
 import com.adri.ej31.estudiante.infrastructure.dto.input.EstudianteInputDTO;
 import com.adri.ej31.estudiante.infrastructure.dto.output.EstudianteOutputDTO;
 import com.adri.ej31.estudiante.infrastructure.repository.EstudianteRepository;
-import com.adri.ej31.exception.NotAssignableRolException;
+import com.adri.ej31.exception.IncorrectRolException;
 import com.adri.ej31.exception.NotFoundException;
-import com.adri.ej31.persona.application.port.ReadPersonaPort;
 import com.adri.ej31.persona.domain.PersonaEntity;
 import com.adri.ej31.persona.infraestructure.repository.PersonaRepository;
-import com.adri.ej31.profesor.domain.ProfesorEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.lang.reflect.Type;
 
 @Service
 public class EstudianteServiceImpl implements EstudianteService {
@@ -61,7 +57,7 @@ public class EstudianteServiceImpl implements EstudianteService {
 
     private void checkRolAssigment(PersonaEntity persona){
         if(persona.getRolProfesor() != null) {
-            throw new NotAssignableRolException("Esta persona ya esta asginada como profesor");
+            throw new IncorrectRolException("Esta persona ya esta asginada como profesor");
         }
     }
 }
