@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProfesorRepository extends JpaRepository<ProfesorEntity, String> {
+    boolean existsByPersona(PersonaEntity persona);
 }
