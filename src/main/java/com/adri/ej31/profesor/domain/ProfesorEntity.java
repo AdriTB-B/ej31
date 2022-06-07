@@ -42,4 +42,9 @@ public class ProfesorEntity {
         setComents(profesor.getComents());
         setRama(profesor.getRama());
     }
+
+    public void update(ProfesorInputDTO profesorIn) {
+        setRama(profesorIn.getRama());
+        setComents(profesorIn.getComents());
+    }
 }

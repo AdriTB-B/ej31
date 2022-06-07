@@ -10,6 +10,4 @@ public interface ReadPersonaPort {
     PersonaOutputDTO getPersonaById(String id);
     List<PersonaOutputDTO> getPersonaByName(String nombre) throws Exception;
     List<PersonaOutputDTO> getPersonas();
-
-    Type getRol(PersonaEntity persona);
 }

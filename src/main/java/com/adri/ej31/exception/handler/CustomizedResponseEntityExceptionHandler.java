@@ -1,5 +1,8 @@
-package com.adri.ej31.exception;
+package com.adri.ej31.exception.handler;
 
+import com.adri.ej31.exception.CustomError;
+import com.adri.ej31.exception.NotAssignableRolException;
+import com.adri.ej31.exception.NotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

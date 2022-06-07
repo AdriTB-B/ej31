@@ -21,10 +21,6 @@ import java.util.List;
 public class ReadPersonaUseCase implements ReadPersonaPort {
     @Autowired
     PersonaRepository personaRepo;
-    @Autowired
-    EstudianteRepository estudianteRepo;
-    @Autowired
-    ProfesorRepository profesorRepo;
 
     @Override
     public PersonaOutputDTO getPersonaById(String id) throws NotFoundException {
@@ -50,12 +46,5 @@ public class ReadPersonaUseCase implements ReadPersonaPort {
             listaPersonaOut.add(pOut);
         });
         return listaPersonaOut;
-    }
-
-    @Override
-    public Type getRol(PersonaEntity persona) {
-        if(profesorRepo.existsByPersona(persona)) return ProfesorEntity.class;
-        if(estudianteRepo.existsByPersona(persona)) return EstudianteEntity.class;
-        else return null;
     }
 }

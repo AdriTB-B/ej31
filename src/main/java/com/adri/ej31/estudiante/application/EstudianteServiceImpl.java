@@ -22,8 +22,6 @@ public class EstudianteServiceImpl implements EstudianteService {
     EstudianteRepository estudianteRepo;
     @Autowired
     PersonaRepository personaRepo;
-    @Autowired
-    ReadPersonaPort readPersonaPort;
     @Override
     public EstudianteEntity findEstudianteById(String id) {
         return estudianteRepo.findById(id).orElseThrow(() -> new NotFoundException(
@@ -37,10 +35,7 @@ public class EstudianteServiceImpl implements EstudianteService {
                 .orElseThrow(()->new NotFoundException(
                         "No hay registrada ninguna persona con el id " + estudiante.getId_persona()
                 ));
-        Type rol = readPersonaPort.getRol(persona);
-        if(rol != null && rol.equals(ProfesorEntity.class)) {
-            throw new NotAssignableRolException("Esta persona ya esta asginada como profesor");
-        }
+        checkRolAssigment(persona);
         EstudianteEntity estudianteEntity = new EstudianteEntity(estudiante);
         estudianteEntity.setPersona(persona);
         estudianteRepo.save(estudianteEntity);
@@ -55,12 +50,18 @@ public class EstudianteServiceImpl implements EstudianteService {
     @Override
     public EstudianteOutputDTO update(String id, EstudianteInputDTO estudianteIn) {
         EstudianteEntity estudianteToUpdate = findEstudianteById(id);
-        System.out.println(estudianteToUpdate);
         PersonaEntity persona = personaRepo.findById(estudianteIn.getId_persona())
                 .orElseThrow(()-> new NotFoundException("No existe ninguna persona con id " + id));
+        checkRolAssigment(persona);
         estudianteToUpdate.update(estudianteIn);
         estudianteToUpdate.setPersona(persona);
         estudianteRepo.save(estudianteToUpdate);
         return new EstudianteOutputDTO(estudianteToUpdate);
+    }
+
+    private void checkRolAssigment(PersonaEntity persona){
+        if(persona.getRolProfesor() != null) {
+            throw new NotAssignableRolException("Esta persona ya esta asginada como profesor");
+        }
     }
 }

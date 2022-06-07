@@ -17,12 +17,17 @@ public class ProfesorController {
 
     @GetMapping("/{id}")
     public ProfesorEntity getProfesorById(@PathVariable("id")String id){
-        return service.findById(id);
+        return service.findProfesorById(id);
     }
 
     @PostMapping("/add")
     public ProfesorOutputDTO addProfesor(@Valid @RequestBody ProfesorInputDTO profesor){
         return service.save(profesor);
+    }
+
+    @PutMapping("/{id}")
+    public ProfesorOutputDTO updateProfesor(@PathVariable("id")String id, @Valid @RequestBody ProfesorInputDTO profesor){
+        return service.updateProfesor(id, profesor);
     }
 
     @DeleteMapping("/{id}")
