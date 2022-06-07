@@ -25,4 +25,9 @@ public class ProfesorController {
         return service.save(profesor);
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteProfesor(@PathVariable("id")String id){
+        service.deleteProfesor(id);
+    }
+
 }

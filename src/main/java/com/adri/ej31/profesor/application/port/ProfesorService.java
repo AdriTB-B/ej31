@@ -9,4 +9,6 @@ public interface ProfesorService {
     public ProfesorEntity findById(String id);
 
     ProfesorOutputDTO save(ProfesorInputDTO profesor);
+
+    void deleteProfesor(String id);
 }
