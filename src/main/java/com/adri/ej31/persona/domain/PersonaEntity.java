@@ -53,9 +53,10 @@ public class PersonaEntity {
     @Column
     @Temporal(TemporalType.DATE)
     private Date termination_date;
-    @OneToOne(mappedBy = "persona")
+
+    @OneToOne(mappedBy = "persona", cascade = CascadeType.ALL)
     private ProfesorEntity rolProfesor;
-    @OneToOne(mappedBy = "persona")
+    @OneToOne(mappedBy = "persona", cascade = CascadeType.ALL)
     private EstudianteEntity rolEstudiante;
 
     public PersonaEntity(PersonaInputDTO personaIn) {

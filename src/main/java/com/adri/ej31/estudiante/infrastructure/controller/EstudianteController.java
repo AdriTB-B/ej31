@@ -31,7 +31,7 @@ public class EstudianteController {
     @PutMapping("/{id}")
     public EstudianteOutputDTO updateEstudiante(
             @PathVariable("id") String id,
-            @Valid @RequestBody EstudianteInputDTO estudianteInputDTO
+            @RequestBody EstudianteInputDTO estudianteInputDTO
     ){
         return  service.update(id, estudianteInputDTO);
     }

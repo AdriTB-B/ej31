@@ -6,7 +6,7 @@ import com.adri.ej31.profesor.infrastructure.dto.input.ProfesorInputDTO;
 import com.adri.ej31.profesor.infrastructure.dto.output.ProfesorOutputDTO;
 
 public interface ProfesorService {
-    public ProfesorEntity findProfesorById(String id);
+    public ProfesorOutputDTO findProfesorById(String id);
 
     ProfesorOutputDTO save(ProfesorInputDTO profesor);
 

@@ -16,7 +16,7 @@ public class ProfesorController {
     ProfesorService service;
 
     @GetMapping("/{id}")
-    public ProfesorEntity getProfesorById(@PathVariable("id")String id){
+    public ProfesorOutputDTO getProfesorById(@PathVariable("id")String id){
         return service.findProfesorById(id);
     }
 
@@ -26,7 +26,7 @@ public class ProfesorController {
     }
 
     @PutMapping("/{id}")
-    public ProfesorOutputDTO updateProfesor(@PathVariable("id")String id, @Valid @RequestBody ProfesorInputDTO profesor){
+    public ProfesorOutputDTO updateProfesor(@PathVariable("id")String id, @RequestBody ProfesorInputDTO profesor){
         return service.updateProfesor(id, profesor);
     }
 

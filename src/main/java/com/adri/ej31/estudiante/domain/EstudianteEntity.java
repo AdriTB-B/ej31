@@ -1,17 +1,17 @@
 package com.adri.ej31.estudiante.domain;
 
 import com.adri.ej31.estudiante.infrastructure.dto.input.EstudianteInputDTO;
-import com.adri.ej31.estudiante_estudio.domain.Estudiante_EstudioEntity;
+import com.adri.ej31.estudio.domain.AsignaturaEntity;
 import com.adri.ej31.persona.domain.PersonaEntity;
-import com.adri.ej31.profesor.domain.ProfesorEntity;
 import com.adri.ej31.StringSequenceIdGenerator;
+import com.adri.ej31.profesor.domain.ProfesorEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "estudiantes")
@@ -25,12 +25,12 @@ public class EstudianteEntity {
             strategy = "com.adri.ej31.StringSequenceIdGenerator",
             parameters = {
                     @Parameter(name = StringSequenceIdGenerator.INCREMENT_PARAM, value = "1"),
-                    @Parameter(name = StringSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "STU"),
+                    @Parameter(name = StringSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "EST"),
                     @Parameter(name = StringSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%04d")
             })
     private String id_estudiante;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "id_persona")
     private PersonaEntity persona;
 
@@ -40,15 +40,20 @@ public class EstudianteEntity {
     @Column(name = "comentarios")
     private String coments;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "id_profesor")
-//    private ProfesorEntity profesor;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_profesor")
+    private ProfesorEntity profesor;
 
     @Column(name = "rama")
     private String rama;
 
-//    @OneToMany(mappedBy = "id_study")
-//    private List<Estudiante_EstudioEntity> estudios;
+    @ManyToMany
+    @JoinTable(
+            name = "estudiante_asignatura",
+            joinColumns = @JoinColumn(name = "id_estudiante"),
+            inverseJoinColumns = @JoinColumn(name = "id_study")
+    )
+    private Set<AsignaturaEntity> asignaturas;
 
     public EstudianteEntity(EstudianteInputDTO estudiante){
         setComents(estudiante.getComents());
@@ -57,8 +62,14 @@ public class EstudianteEntity {
     }
 
     public void update(EstudianteInputDTO estudianteIn) {
-        setComents(estudianteIn.getComents());
-        setRama(estudianteIn.getRama());
-        setNum_hours_week(estudianteIn.getNum_hours_week());
+        if(estudianteIn.getComents() != null){
+            setComents(estudianteIn.getComents());
+        }
+        if(estudianteIn.getRama() != null){
+            setRama(estudianteIn.getRama());
+        }
+        if(estudianteIn.getNum_hours_week() != null){
+            setNum_hours_week(estudianteIn.getNum_hours_week());
+        }
     }
 }
