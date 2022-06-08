@@ -1,5 +1,7 @@
 package com.adri.ej31.profesor.domain;
 
+import com.adri.ej31.estudiante.domain.EstudianteEntity;
+import com.adri.ej31.estudio.domain.AsignaturaEntity;
 import com.adri.ej31.persona.domain.PersonaEntity;
 import com.adri.ej31.StringSequenceIdGenerator;
 import com.adri.ej31.profesor.infrastructure.dto.input.ProfesorInputDTO;
@@ -9,6 +11,9 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -28,7 +33,7 @@ public class ProfesorEntity {
             })
     private String id_profesor;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_persona")
     private PersonaEntity persona;
 
@@ -38,13 +43,23 @@ public class ProfesorEntity {
     @Column(name = "branch") @NotNull
     private String rama;
 
+//    @OneToMany(mappedBy = "profesor")
+//    private List<AsignaturaEntity> estudios;
+
+    @OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL)
+    private List<EstudianteEntity> estudiantes;
+
     public ProfesorEntity(ProfesorInputDTO profesor){
         setComents(profesor.getComents());
         setRama(profesor.getRama());
     }
 
     public void update(ProfesorInputDTO profesorIn) {
-        setRama(profesorIn.getRama());
-        setComents(profesorIn.getComents());
+        if(profesorIn.getRama() != null){
+            setRama(profesorIn.getRama());
+        }
+        if(profesorIn.getComents() != null){
+            setComents(profesorIn.getComents());
+        }
     }
 }

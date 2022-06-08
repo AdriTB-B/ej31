@@ -10,8 +10,7 @@ import javax.validation.constraints.NotNull;
 public class EstudianteInputDTO {
     @NotEmpty(message = "El alumno debe tener unos datos personales")
     private String id_persona;
-//    @NotEmpty(message = "El alumno debe tener un profesor/profesora")
-//    private ProfesorEntity profesor;
+    private String id_profesor;
     @NotNull
     private Integer num_hours_week;
     private String coments;

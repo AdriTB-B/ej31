@@ -53,6 +53,7 @@ public class PersonaEntity {
     @Column
     @Temporal(TemporalType.DATE)
     private Date termination_date;
+
     @OneToOne(mappedBy = "persona")
     private ProfesorEntity rolProfesor;
     @OneToOne(mappedBy = "persona")

@@ -9,6 +9,8 @@ import com.adri.ej31.exception.IncorrectRolException;
 import com.adri.ej31.exception.NotFoundException;
 import com.adri.ej31.persona.domain.PersonaEntity;
 import com.adri.ej31.persona.infraestructure.repository.PersonaRepository;
+import com.adri.ej31.profesor.domain.ProfesorEntity;
+import com.adri.ej31.profesor.infrastructure.repository.ProfesorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,9 @@ public class EstudianteServiceImpl implements EstudianteService {
     EstudianteRepository estudianteRepo;
     @Autowired
     PersonaRepository personaRepo;
+    @Autowired
+    ProfesorRepository profesorRepo;
+
     @Override
     public EstudianteEntity findEstudianteById(String id) {
         return estudianteRepo.findById(id).orElseThrow(() -> new NotFoundException(
@@ -32,8 +37,17 @@ public class EstudianteServiceImpl implements EstudianteService {
                         "No hay registrada ninguna persona con el id " + estudiante.getId_persona()
                 ));
         checkRolAssigment(persona);
+
+        ProfesorEntity profesor = null;
+        if(estudiante.getId_profesor() != null){
+             profesor = profesorRepo.findById(estudiante.getId_profesor())
+                    .orElseThrow(()->new NotFoundException(
+                            "No hay registrada ningún profesor con el id " + estudiante.getId_profesor()
+                    ));
+        }
         EstudianteEntity estudianteEntity = new EstudianteEntity(estudiante);
         estudianteEntity.setPersona(persona);
+        estudianteEntity.setProfesor(profesor);
         estudianteRepo.save(estudianteEntity);
         return new EstudianteOutputDTO(estudianteEntity);
     }

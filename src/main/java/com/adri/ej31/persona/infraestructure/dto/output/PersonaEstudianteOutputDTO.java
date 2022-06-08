@@ -1,6 +1,5 @@
 package com.adri.ej31.persona.infraestructure.dto.output;
 
-import com.adri.ej31.estudiante.domain.EstudianteEntity;
 import com.adri.ej31.estudiante.infrastructure.dto.output.EstudianteOutputDTO;
 import com.adri.ej31.exception.IncorrectRolException;
 import com.adri.ej31.persona.domain.PersonaEntity;

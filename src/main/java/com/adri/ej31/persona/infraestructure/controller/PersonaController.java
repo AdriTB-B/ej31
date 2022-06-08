@@ -65,7 +65,7 @@ public class PersonaController {
 
     @PutMapping("/{id}")
     public PersonaOutputDTO updatePersonaById(
-            @Valid @RequestBody PersonaInputDTO personaIn,
+            @RequestBody PersonaInputDTO personaIn,
             @PathVariable("id")String id
     ) {
         return updatePersona.updatePersona(id, personaIn);
