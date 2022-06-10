@@ -1,7 +1,7 @@
 package com.adri.ej31.profesor.domain;
 
 import com.adri.ej31.estudiante.domain.EstudianteEntity;
-import com.adri.ej31.estudio.domain.AsignaturaEntity;
+import com.adri.ej31.estudiante_asignatura.domain.EstudianteAsignaturaEntity;
 import com.adri.ej31.persona.domain.PersonaEntity;
 import com.adri.ej31.StringSequenceIdGenerator;
 import com.adri.ej31.profesor.infrastructure.dto.input.ProfesorInputDTO;
@@ -11,9 +11,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 
 @Entity
@@ -33,18 +31,18 @@ public class ProfesorEntity {
             })
     private String id_profesor;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_persona")
+    @OneToOne
+    @JoinColumn(name = "id_persona", unique = true)
     private PersonaEntity persona;
 
-    @Column(name = "coments")
+    @Column(name = "comentarios")
     private String coments;
 
-    @Column(name = "branch") @NotNull
+    @Column(name = "rama") @NotNull
     private String rama;
 
-//    @OneToMany(mappedBy = "profesor")
-//    private List<AsignaturaEntity> estudios;
+    @OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL)
+    private List<EstudianteAsignaturaEntity> asignaturas;
 
     @OneToMany(mappedBy = "profesor", cascade = CascadeType.ALL)
     private List<EstudianteEntity> estudiantes;

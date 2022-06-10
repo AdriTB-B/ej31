@@ -1,7 +1,7 @@
 package com.adri.ej31.estudiante.domain;
 
 import com.adri.ej31.estudiante.infrastructure.dto.input.EstudianteInputDTO;
-import com.adri.ej31.estudio.domain.AsignaturaEntity;
+import com.adri.ej31.estudiante_asignatura.domain.EstudianteAsignaturaEntity;
 import com.adri.ej31.persona.domain.PersonaEntity;
 import com.adri.ej31.StringSequenceIdGenerator;
 import com.adri.ej31.profesor.domain.ProfesorEntity;
@@ -12,7 +12,6 @@ import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "estudiantes")
@@ -32,7 +31,7 @@ public class EstudianteEntity {
     private String id_estudiante;
 
     @OneToOne
-    @JoinColumn(name = "id_persona")
+    @JoinColumn(name = "id_persona", unique = true)
     private PersonaEntity persona;
 
     @Column(name = "horas_por_semana")
@@ -48,13 +47,8 @@ public class EstudianteEntity {
     @Column(name = "rama")
     private String rama;
 
-    @ManyToMany
-    @JoinTable(
-            name = "estudiante_asignatura",
-            joinColumns = @JoinColumn(name = "id_estudiante"),
-            inverseJoinColumns = @JoinColumn(name = "id_study")
-    )
-    private List<AsignaturaEntity> asignaturas;
+    @ManyToMany(mappedBy = "estudiantes", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<EstudianteAsignaturaEntity> asignaturas;
 
     public EstudianteEntity(EstudianteInputDTO estudiante){
         setComents(estudiante.getComents());
@@ -73,4 +67,5 @@ public class EstudianteEntity {
             setNum_hours_week(estudianteIn.getNum_hours_week());
         }
     }
+
 }

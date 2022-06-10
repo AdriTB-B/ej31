@@ -1,6 +1,5 @@
 package com.adri.ej31.profesor.infrastructure.controller;
 
-import com.adri.ej31.profesor.domain.ProfesorEntity;
 import com.adri.ej31.profesor.application.port.ProfesorService;
 import com.adri.ej31.profesor.infrastructure.dto.input.ProfesorInputDTO;
 import com.adri.ej31.profesor.infrastructure.dto.output.ProfesorOutputDTO;

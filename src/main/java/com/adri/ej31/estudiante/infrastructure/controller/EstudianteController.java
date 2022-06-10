@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
+import java.util.List;
 
 @RestController
 @RequestMapping("/estudiante")
@@ -45,4 +46,13 @@ public class EstudianteController {
     public void deleteEstudiante(@PathVariable("id")String id){
         service.deleteById(id);
     }
+
+    @PutMapping("/addAsignatura/{id}")
+    public EstudianteOutputDTO updateEstudiante(
+            @PathVariable("id") String id_estudiante,
+            @RequestBody List<String> ids_asignaturas
+    ){
+        return  service.addAsignaturas(id_estudiante, ids_asignaturas);
+    }
+
 }
