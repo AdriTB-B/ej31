@@ -76,5 +76,9 @@ public class EstudianteAsignaturaEntity {
             setFinish_date(asignaturaIn.getFinish_date());
         }
     }
+
+    public void addEstudiante(EstudianteEntity estudiante) {
+        estudiantes.add(estudiante);
+    }
 }
 

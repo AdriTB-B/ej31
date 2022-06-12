@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Data
 public class EstudianteInputDTO {
@@ -16,4 +17,5 @@ public class EstudianteInputDTO {
     private String coments;
     @NotEmpty(message = "El alumno debe pertenecer a una rama")
     private String rama;
+    private List<String> ids_asignaturas;
 }

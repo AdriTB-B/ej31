@@ -6,6 +6,7 @@ import com.adri.ej31.estudiante.infrastructure.dto.input.EstudianteInputDTO;
 import com.adri.ej31.estudiante.infrastructure.dto.output.EstudianteOutputDTO;
 import com.adri.ej31.estudiante.infrastructure.repository.EstudianteRepository;
 import com.adri.ej31.estudiante_asignatura.domain.EstudianteAsignaturaEntity;
+import com.adri.ej31.estudiante_asignatura.infrastructure.dto.output.EstudianteAsignaturaOutputDTO;
 import com.adri.ej31.estudiante_asignatura.infrastructure.repository.EstudianteAsignaturaRepository;
 import com.adri.ej31.exception.IncorrectRolException;
 import com.adri.ej31.exception.NotFoundException;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EstudianteServiceImpl implements EstudianteService {
@@ -52,9 +54,14 @@ public class EstudianteServiceImpl implements EstudianteService {
                             "No hay registrada ningún profesor con el id " + estudiante.getId_profesor()
                     ));
         }
+
+        List<EstudianteAsignaturaEntity> asignaturas = findAsignaturasByIds(estudiante.getIds_asignaturas());
+
         EstudianteEntity estudianteEntity = new EstudianteEntity(estudiante);
         estudianteEntity.setPersona(persona);
         estudianteEntity.setProfesor(profesor);
+        estudianteEntity.setAsignaturas(asignaturas);
+        asignaturas.forEach(asignatura -> asignatura.addEstudiante(estudianteEntity));
         estudianteRepo.save(estudianteEntity);
         return new EstudianteOutputDTO(estudianteEntity);
     }
@@ -79,11 +86,18 @@ public class EstudianteServiceImpl implements EstudianteService {
     @Override
     public EstudianteOutputDTO addAsignaturas(String id_estudiante, List<String> ids_asignaturasToInsert) {
         EstudianteEntity estudiante = this.findEstudianteById(id_estudiante);
-        List<String> idsAsignaturas = new ArrayList<>(estudiante.getAsignaturas().stream()
-                .map(EstudianteAsignaturaEntity::getId_asignatura).toList());
+        List<String> idsAsignaturas = estudiante.getAsignaturas()
+                .stream()
+                .map(EstudianteAsignaturaEntity::getId_asignatura)
+                .collect(Collectors.toList());
         idsAsignaturas.addAll(ids_asignaturasToInsert);
-        estudiante.setAsignaturas(findAsignaturasByIds(idsAsignaturas.stream().distinct().toList()));
-        estudiante.setAsignaturas(estAsiRepo.findAllById(ids_asignaturasToInsert));
+        List<EstudianteAsignaturaEntity> asignaturas = findAsignaturasByIds(idsAsignaturas
+                .stream()
+                .distinct()
+                .collect(Collectors.toList())
+        );
+        estudiante.setAsignaturas(asignaturas);
+        asignaturas.forEach(asignatura -> asignatura.addEstudiante(estudiante));
         estudianteRepo.save(estudiante);
         return new EstudianteOutputDTO(estudiante);
     }

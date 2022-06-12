@@ -1,9 +1,13 @@
 package com.adri.ej31.estudiante.infrastructure.dto.output;
 
 import com.adri.ej31.estudiante.domain.EstudianteEntity;
+import com.adri.ej31.estudiante_asignatura.domain.EstudianteAsignaturaEntity;
 import com.adri.ej31.profesor.infrastructure.dto.output.ProfesorOutputDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -14,6 +18,7 @@ public class EstudianteOutputDTO {
     private Integer num_hours_week;
     private String coments;
     private String rama;
+    private List<String> ids_asignaturas;
 
     public EstudianteOutputDTO(EstudianteEntity estudiante){
         setId_estudiante(estudiante.getId_estudiante());
@@ -22,5 +27,9 @@ public class EstudianteOutputDTO {
         setRama(estudiante.getRama());
         setNum_hours_week(estudiante.getNum_hours_week());
         setId_profesor(estudiante.getProfesor().getId_profesor());
+        setIds_asignaturas(estudiante.getAsignaturas().stream()
+                .map(EstudianteAsignaturaEntity::getId_asignatura)
+                .toList()
+        );
     }
 }

@@ -11,6 +11,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -48,7 +49,7 @@ public class EstudianteEntity {
     private String rama;
 
     @ManyToMany(mappedBy = "estudiantes", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<EstudianteAsignaturaEntity> asignaturas;
+    private List<EstudianteAsignaturaEntity> asignaturas = new ArrayList<>();
 
     public EstudianteEntity(EstudianteInputDTO estudiante){
         setComents(estudiante.getComents());
@@ -67,5 +68,4 @@ public class EstudianteEntity {
             setNum_hours_week(estudianteIn.getNum_hours_week());
         }
     }
-
 }
