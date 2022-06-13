@@ -1,14 +1,12 @@
 package com.adri.ej31.persona.application;
 
-import com.adri.ej31.persona.application.port.ReadPersonaPort;
 import com.adri.ej31.exception.NotFoundException;
-import com.adri.ej31.persona.infraestructure.repository.PersonaRepository;
+import com.adri.ej31.persona.application.port.ReadPersonaPort;
 import com.adri.ej31.persona.domain.PersonaEntity;
+import com.adri.ej31.persona.infraestructure.repository.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Service

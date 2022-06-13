@@ -13,7 +13,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "asignaturas")
@@ -79,6 +78,10 @@ public class EstudianteAsignaturaEntity {
 
     public void addEstudiante(EstudianteEntity estudiante) {
         estudiantes.add(estudiante);
+    }
+
+    public void removeEstudiante(EstudianteEntity estudiante) {
+        estudiantes.remove(estudiante);
     }
 }
 

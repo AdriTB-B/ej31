@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -48,11 +47,18 @@ public class EstudianteController {
     }
 
     @PutMapping("/addAsignatura/{id}")
-    public EstudianteOutputDTO updateEstudiante(
+    public EstudianteOutputDTO addAsignatura(
             @PathVariable("id") String id_estudiante,
             @RequestBody List<String> ids_asignaturas
     ){
         return  service.addAsignaturas(id_estudiante, ids_asignaturas);
+    }
+    @PutMapping("/removeAsignatura/{id}")
+    public EstudianteOutputDTO removeAsignatura(
+            @PathVariable("id") String id_estudiante,
+            @RequestBody List<String> ids_asignaturas
+    ){
+        return  service.removeAsignaturas(id_estudiante, ids_asignaturas);
     }
 
 }

@@ -1,14 +1,15 @@
 package com.adri.ej31.profesor.domain;
 
+import com.adri.ej31.StringSequenceIdGenerator;
 import com.adri.ej31.estudiante.domain.EstudianteEntity;
 import com.adri.ej31.estudiante_asignatura.domain.EstudianteAsignaturaEntity;
 import com.adri.ej31.persona.domain.PersonaEntity;
-import com.adri.ej31.StringSequenceIdGenerator;
 import com.adri.ej31.profesor.infrastructure.dto.input.ProfesorInputDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -31,7 +32,7 @@ public class ProfesorEntity {
             })
     private String id_profesor;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_persona", unique = true)
     private PersonaEntity persona;
 

@@ -1,13 +1,13 @@
 package com.adri.ej31.estudiante_asignatura.application;
 
 import com.adri.ej31.estudiante.domain.EstudianteEntity;
-import com.adri.ej31.estudiante.infrastructure.dto.output.EstudianteOutputDTO;
 import com.adri.ej31.estudiante.infrastructure.repository.EstudianteRepository;
 import com.adri.ej31.estudiante_asignatura.application.port.EstudianteAsignaturaService;
 import com.adri.ej31.estudiante_asignatura.domain.EstudianteAsignaturaEntity;
 import com.adri.ej31.estudiante_asignatura.infrastructure.dto.input.EstudianteAsignaturaInputDTO;
 import com.adri.ej31.estudiante_asignatura.infrastructure.dto.output.EstudianteAsignaturaOutputDTO;
 import com.adri.ej31.estudiante_asignatura.infrastructure.repository.EstudianteAsignaturaRepository;
+import com.adri.ej31.exception.DeleteNotAcceptedException;
 import com.adri.ej31.exception.NotFoundException;
 import com.adri.ej31.profesor.domain.ProfesorEntity;
 import com.adri.ej31.profesor.infrastructure.repository.ProfesorRepository;
@@ -69,7 +69,12 @@ public class EstudianteAsignaturaImpl implements EstudianteAsignaturaService {
 
     @Override
     public void deleteById(String id) {
-        estAsiRepo.deleteById(id);
+        EstudianteAsignaturaEntity asignatura = estAsiRepo.findById(id)
+                .orElseThrow(()-> new NotFoundException("No se encuentra la asignatura con id " + id));
+        if(!asignatura.getEstudiantes().isEmpty()) {
+            throw new DeleteNotAcceptedException("Esta asignatura tiene estudiantes asignados. No se puede eliminar");
+        }
+        estAsiRepo.delete(asignatura);
     }
 
     @Override

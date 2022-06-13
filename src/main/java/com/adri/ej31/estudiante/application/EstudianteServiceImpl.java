@@ -6,7 +6,6 @@ import com.adri.ej31.estudiante.infrastructure.dto.input.EstudianteInputDTO;
 import com.adri.ej31.estudiante.infrastructure.dto.output.EstudianteOutputDTO;
 import com.adri.ej31.estudiante.infrastructure.repository.EstudianteRepository;
 import com.adri.ej31.estudiante_asignatura.domain.EstudianteAsignaturaEntity;
-import com.adri.ej31.estudiante_asignatura.infrastructure.dto.output.EstudianteAsignaturaOutputDTO;
 import com.adri.ej31.estudiante_asignatura.infrastructure.repository.EstudianteAsignaturaRepository;
 import com.adri.ej31.exception.IncorrectRolException;
 import com.adri.ej31.exception.NotFoundException;
@@ -98,6 +97,16 @@ public class EstudianteServiceImpl implements EstudianteService {
         );
         estudiante.setAsignaturas(asignaturas);
         asignaturas.forEach(asignatura -> asignatura.addEstudiante(estudiante));
+        estudianteRepo.save(estudiante);
+        return new EstudianteOutputDTO(estudiante);
+    }
+
+    @Override
+    public EstudianteOutputDTO removeAsignaturas(String id_estudiante, List<String> ids_asignaturas) {
+        EstudianteEntity estudiante = this.findEstudianteById(id_estudiante);
+        List<EstudianteAsignaturaEntity> asignaturas = findAsignaturasByIds(ids_asignaturas);
+        estudiante.getAsignaturas().removeAll(asignaturas);
+        asignaturas.forEach(asignatura -> asignatura.removeEstudiante(estudiante));
         estudianteRepo.save(estudiante);
         return new EstudianteOutputDTO(estudiante);
     }

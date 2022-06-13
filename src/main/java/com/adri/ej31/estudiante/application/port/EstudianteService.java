@@ -16,4 +16,6 @@ public interface EstudianteService {
     EstudianteOutputDTO update(String id, EstudianteInputDTO estudianteInputDTO);
 
     EstudianteOutputDTO addAsignaturas(String id_estudiante, List<String> ids_asignaturas);
+
+    EstudianteOutputDTO removeAsignaturas(String id_estudiante, List<String> ids_asignaturas);
 }

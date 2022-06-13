@@ -1,9 +1,9 @@
 package com.adri.ej31.estudiante.domain;
 
+import com.adri.ej31.StringSequenceIdGenerator;
 import com.adri.ej31.estudiante.infrastructure.dto.input.EstudianteInputDTO;
 import com.adri.ej31.estudiante_asignatura.domain.EstudianteAsignaturaEntity;
 import com.adri.ej31.persona.domain.PersonaEntity;
-import com.adri.ej31.StringSequenceIdGenerator;
 import com.adri.ej31.profesor.domain.ProfesorEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,7 +31,7 @@ public class EstudianteEntity {
             })
     private String id_estudiante;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_persona", unique = true)
     private PersonaEntity persona;
 

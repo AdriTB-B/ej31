@@ -2,11 +2,9 @@ package com.adri.ej31.estudiante.infrastructure.dto.output;
 
 import com.adri.ej31.estudiante.domain.EstudianteEntity;
 import com.adri.ej31.estudiante_asignatura.domain.EstudianteAsignaturaEntity;
-import com.adri.ej31.profesor.infrastructure.dto.output.ProfesorOutputDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
