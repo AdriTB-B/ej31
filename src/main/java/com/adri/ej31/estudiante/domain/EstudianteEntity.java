@@ -31,7 +31,7 @@ public class EstudianteEntity {
             })
     private String id_estudiante;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_persona", unique = true)
     private PersonaEntity persona;
 

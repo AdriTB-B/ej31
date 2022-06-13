@@ -80,5 +80,9 @@ public class EstudianteAsignaturaEntity {
     public void addEstudiante(EstudianteEntity estudiante) {
         estudiantes.add(estudiante);
     }
+
+    public void removeEstudiante(EstudianteEntity estudiante) {
+        estudiantes.remove(estudiante);
+    }
 }
 

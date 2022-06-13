@@ -1,6 +1,7 @@
 package com.adri.ej31.exception.handler;
 
 import com.adri.ej31.exception.CustomError;
+import com.adri.ej31.exception.DeleteNotAcceptedException;
 import com.adri.ej31.exception.IncorrectRolException;
 import com.adri.ej31.exception.NotFoundException;
 import org.springframework.http.HttpHeaders;
@@ -35,6 +36,17 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
         );
         return new ResponseEntity<>(error, HttpStatus.NOT_ACCEPTABLE);
     }
+
+    @ExceptionHandler(DeleteNotAcceptedException.class)
+    public final ResponseEntity<CustomError> handleDeleteNotAcceptedExceptionException(DeleteNotAcceptedException ex) {
+        CustomError error = new CustomError(
+                new Date(),
+                406,
+                ex.getMessage()
+        );
+        return new ResponseEntity<>(error, HttpStatus.NOT_ACCEPTABLE);
+    }
+
 //  Captura de excepción propia (Lanzamiento manual)
 //    @ExceptionHandler(UnprocesableException.class)
 //    public final ResponseEntity<CustomError> handleUnprocesabeException(UnprocesableException ex) {

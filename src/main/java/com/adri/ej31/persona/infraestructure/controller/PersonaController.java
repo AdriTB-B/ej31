@@ -86,11 +86,17 @@ public class PersonaController {
     }
 
     private PersonaOutputDTO getByRol(String rol, PersonaEntity persona){
-        return switch (rol) {
-            case "persona" -> new PersonaOutputDTO(persona);
-            case "estudiante" -> new PersonaEstudianteOutputDTO(persona);
-            case "profesor" -> new PersonaProfesorOuputDTO(persona);
-            default -> throw new IncorrectRolException(rol + " no es un rol válido. Opciones: persona/ estudiante/ profesor");
-        };
+        switch (rol) {
+            case "persona": return new PersonaOutputDTO(persona);
+            case "estudiante": {
+                if(persona.getRolEstudiante() != null) return new PersonaEstudianteOutputDTO(persona);
+                else return new PersonaOutputDTO(persona);
+            }
+            case "profesor": {
+                if(persona.getRolProfesor() != null) return new PersonaProfesorOuputDTO(persona);
+                else return new PersonaOutputDTO(persona);
+            }
+            default: throw new IncorrectRolException(rol + " no es un rol válido. Opciones: persona/ estudiante/ profesor");
+        }
     }
 }

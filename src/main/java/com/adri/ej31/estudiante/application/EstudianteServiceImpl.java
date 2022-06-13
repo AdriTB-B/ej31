@@ -102,6 +102,16 @@ public class EstudianteServiceImpl implements EstudianteService {
         return new EstudianteOutputDTO(estudiante);
     }
 
+    @Override
+    public EstudianteOutputDTO removeAsignaturas(String id_estudiante, List<String> ids_asignaturas) {
+        EstudianteEntity estudiante = this.findEstudianteById(id_estudiante);
+        List<EstudianteAsignaturaEntity> asignaturas = findAsignaturasByIds(ids_asignaturas);
+        estudiante.getAsignaturas().removeAll(asignaturas);
+        asignaturas.forEach(asignatura -> asignatura.removeEstudiante(estudiante));
+        estudianteRepo.save(estudiante);
+        return new EstudianteOutputDTO(estudiante);
+    }
+
     private List<EstudianteAsignaturaEntity> findAsignaturasByIds(List<String> ids) {
         List<EstudianteAsignaturaEntity> asignaturas = new ArrayList<>();
         if(ids != null){
