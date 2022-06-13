@@ -19,7 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequestMapping("/persona")
 @RestController
@@ -47,20 +49,27 @@ public class PersonaController {
             @PathVariable("id") String id,
             @RequestParam(name = "rol", defaultValue = "persona")String rol
     ) {
-        return switch (rol) {
-            case "persona" -> new PersonaOutputDTO(readPersona.getPersonaById(id));
-            case "estudiante" -> new PersonaEstudianteOutputDTO(readPersona.getPersonaById(id));
-            case "profesor" -> new PersonaProfesorOuputDTO(readPersona.getPersonaById(id));
-            default -> throw new IncorrectRolException(rol + " no es un rol válido. Opciones: persona/ estudiante/ profesor");
-        };
+        PersonaOutputDTO persona = getByRol(rol, readPersona.getPersonaById(id));
+        return persona;
     }
     @GetMapping("/nombre/{nombre}")
-    public List<PersonaOutputDTO> getPersonaByName(@PathVariable("nombre") String nombre) throws Exception{
-        return readPersona.getPersonaByName(nombre);
+    public List<PersonaOutputDTO> getPersonaByName(
+            @PathVariable("nombre") String nombre,
+            @RequestParam(name = "rol", defaultValue = "persona")String rol
+    ) throws Exception{
+        List<PersonaOutputDTO> personas = readPersona.getPersonaByName(nombre).stream()
+                .map(per -> getByRol(rol, per))
+                .collect(Collectors.toList()
+                );
+        return personas;
     }
     @GetMapping("/all")
-    public List<PersonaOutputDTO> getPersonas() {
-        return readPersona.getPersonas();
+    public List<PersonaOutputDTO> getPersonas(@RequestParam(name = "rol", defaultValue = "persona")String rol) {
+        List<PersonaOutputDTO> personas = readPersona.getPersonas().stream()
+                .map(per -> getByRol(rol, per))
+                .collect(Collectors.toList()
+                );
+        return personas;
     }
 
     @PutMapping("/{id}")
@@ -74,5 +83,14 @@ public class PersonaController {
     @DeleteMapping("/{id}")
     public void deletePersonaById(@PathVariable("id") String id) {
         deletePersona.deletePersona(id);
+    }
+
+    private PersonaOutputDTO getByRol(String rol, PersonaEntity persona){
+        return switch (rol) {
+            case "persona" -> new PersonaOutputDTO(persona);
+            case "estudiante" -> new PersonaEstudianteOutputDTO(persona);
+            case "profesor" -> new PersonaProfesorOuputDTO(persona);
+            default -> throw new IncorrectRolException(rol + " no es un rol válido. Opciones: persona/ estudiante/ profesor");
+        };
     }
 }

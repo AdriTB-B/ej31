@@ -4,7 +4,6 @@ import com.adri.ej31.persona.application.port.ReadPersonaPort;
 import com.adri.ej31.exception.NotFoundException;
 import com.adri.ej31.persona.infraestructure.repository.PersonaRepository;
 import com.adri.ej31.persona.domain.PersonaEntity;
-import com.adri.ej31.persona.infraestructure.dto.output.PersonaOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,21 +24,12 @@ public class ReadPersonaUseCase implements ReadPersonaPort {
     }
 
     @Override
-    public List<PersonaOutputDTO> getPersonaByName(String nombre) {
-        List<PersonaOutputDTO> listaSalida = new ArrayList<>();
-        personaRepo.findByName(nombre).forEach(pE->{
-            listaSalida.add(new PersonaOutputDTO(pE));
-        });
-        return listaSalida;
+    public List<PersonaEntity> getPersonaByName(String nombre) {
+        return personaRepo.findByName(nombre);
     }
 
     @Override
-    public List<PersonaOutputDTO> getPersonas() {
-        List<PersonaOutputDTO> listaPersonaOut = new ArrayList<>();
-        personaRepo.findAll().forEach(p->{
-            PersonaOutputDTO pOut = new PersonaOutputDTO(p);
-            listaPersonaOut.add(pOut);
-        });
-        return listaPersonaOut;
+    public List<PersonaEntity> getPersonas() {
+        return personaRepo.findAll();
     }
 }
