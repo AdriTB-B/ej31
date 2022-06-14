@@ -10,11 +10,17 @@ import com.adri.ej31.persona.infraestructure.dto.input.PersonaInputDTO;
 import com.adri.ej31.persona.infraestructure.dto.output.PersonaEstudianteOutputDTO;
 import com.adri.ej31.persona.infraestructure.dto.output.PersonaOutputDTO;
 import com.adri.ej31.persona.infraestructure.dto.output.PersonaProfesorOuputDTO;
+import com.adri.ej31.profesor.domain.ProfesorEntity;
+import com.adri.ej31.profesor.infrastructure.dto.output.ProfesorOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RequestMapping("/persona")
@@ -33,6 +39,19 @@ public class PersonaController {
     public PersonaOutputDTO addPersona(@Valid @RequestBody PersonaInputDTO personaIn) {
         return createPersona.addPersona(personaIn);
     }
+
+    //Ejercicio RestTemplate y Feign/////////////////////////////////////////////////
+    @GetMapping("/profesor/{id}")
+    public ProfesorOutputDTO getProfesor(@PathVariable("id")String id){
+        ResponseEntity<ProfesorOutputDTO> profesor = new RestTemplate().getForEntity(
+                "http://localhost:8081/profesor/" + id,
+                ProfesorOutputDTO.class
+        );
+        if (profesor.getStatusCode()== HttpStatus.OK)
+            return profesor.getBody();
+        throw new RuntimeException("The server didn't respond OK");
+    }
+    /////////////////////////////////////////////////////////////////////////////////
 
     @GetMapping("/{id}")
     public PersonaOutputDTO getPersonaById(

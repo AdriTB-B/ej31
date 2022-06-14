@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.adri</groupId>
-	<artifactId>db1</artifactId>
+	<artifactId>ej31</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ejerciciodb1-spring</name>
-	<description>Ejercicio DB1 Spring - JPA Hibernate DTO</description>
+	<name>ejercicio-ej3-1-spring</name>
+	<description>Ejercicio EJ3-1 Spring - Relación entre tablas</description>
 	<properties>
 		<java.version>18</java.version>
 	</properties>
@@ -49,6 +49,11 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.1.0</version>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
