@@ -1,4 +1,4 @@
-package com.adri.ej31.persona.infraestructure.dto.input;
+package com.adri.ej31.persona.infrastructure.dto.input;
 
 import lombok.Data;
 

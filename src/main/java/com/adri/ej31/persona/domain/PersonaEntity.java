@@ -2,7 +2,7 @@ package com.adri.ej31.persona.domain;
 
 import com.adri.ej31.StringSequenceIdGenerator;
 import com.adri.ej31.estudiante.domain.EstudianteEntity;
-import com.adri.ej31.persona.infraestructure.dto.input.PersonaInputDTO;
+import com.adri.ej31.persona.infrastructure.dto.input.PersonaInputDTO;
 import com.adri.ej31.profesor.domain.ProfesorEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;

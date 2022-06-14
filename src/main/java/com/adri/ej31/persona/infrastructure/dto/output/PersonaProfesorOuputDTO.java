@@ -1,4 +1,4 @@
-package com.adri.ej31.persona.infraestructure.dto.output;
+package com.adri.ej31.persona.infrastructure.dto.output;
 
 import com.adri.ej31.exception.IncorrectRolException;
 import com.adri.ej31.persona.domain.PersonaEntity;

@@ -1,4 +1,4 @@
-package com.adri.ej31.persona.infraestructure.controller;
+package com.adri.ej31.persona.infrastructure.controller;
 
 import com.adri.ej31.exception.IncorrectRolException;
 import com.adri.ej31.feign.IFeignServer;
@@ -7,21 +7,16 @@ import com.adri.ej31.persona.application.port.DeletePersonaPort;
 import com.adri.ej31.persona.application.port.ReadPersonaPort;
 import com.adri.ej31.persona.application.port.UpdatePersonaPort;
 import com.adri.ej31.persona.domain.PersonaEntity;
-import com.adri.ej31.persona.infraestructure.dto.input.PersonaInputDTO;
-import com.adri.ej31.persona.infraestructure.dto.output.PersonaEstudianteOutputDTO;
-import com.adri.ej31.persona.infraestructure.dto.output.PersonaOutputDTO;
-import com.adri.ej31.persona.infraestructure.dto.output.PersonaProfesorOuputDTO;
-import com.adri.ej31.profesor.domain.ProfesorEntity;
+import com.adri.ej31.persona.infrastructure.dto.input.PersonaInputDTO;
+import com.adri.ej31.persona.infrastructure.dto.output.PersonaEstudianteOutputDTO;
+import com.adri.ej31.persona.infrastructure.dto.output.PersonaOutputDTO;
+import com.adri.ej31.persona.infrastructure.dto.output.PersonaProfesorOuputDTO;
 import com.adri.ej31.profesor.infrastructure.dto.output.ProfesorOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RequestMapping("/persona")

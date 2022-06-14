@@ -4,7 +4,7 @@ import com.adri.ej31.exception.DeleteNotAcceptedException;
 import com.adri.ej31.exception.NotFoundException;
 import com.adri.ej31.persona.application.port.DeletePersonaPort;
 import com.adri.ej31.persona.domain.PersonaEntity;
-import com.adri.ej31.persona.infraestructure.repository.PersonaRepository;
+import com.adri.ej31.persona.infrastructure.repository.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

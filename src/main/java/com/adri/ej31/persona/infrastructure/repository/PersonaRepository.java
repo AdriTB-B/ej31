@@ -1,4 +1,4 @@
-package com.adri.ej31.persona.infraestructure.repository;
+package com.adri.ej31.persona.infrastructure.repository;
 
 
 import com.adri.ej31.persona.domain.PersonaEntity;

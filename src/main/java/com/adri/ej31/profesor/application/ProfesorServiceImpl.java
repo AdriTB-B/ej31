@@ -4,7 +4,7 @@ import com.adri.ej31.estudiante.infrastructure.dto.output.EstudianteOutputDTO;
 import com.adri.ej31.exception.IncorrectRolException;
 import com.adri.ej31.exception.NotFoundException;
 import com.adri.ej31.persona.domain.PersonaEntity;
-import com.adri.ej31.persona.infraestructure.repository.PersonaRepository;
+import com.adri.ej31.persona.infrastructure.repository.PersonaRepository;
 import com.adri.ej31.profesor.application.port.ProfesorService;
 import com.adri.ej31.profesor.domain.ProfesorEntity;
 import com.adri.ej31.profesor.infrastructure.dto.input.ProfesorInputDTO;
