@@ -1,6 +1,7 @@
 package com.adri.ej31.persona.infraestructure.controller;
 
 import com.adri.ej31.exception.IncorrectRolException;
+import com.adri.ej31.feign.IFeignServer;
 import com.adri.ej31.persona.application.port.CreatePersonaPort;
 import com.adri.ej31.persona.application.port.DeletePersonaPort;
 import com.adri.ej31.persona.application.port.ReadPersonaPort;
@@ -34,6 +35,8 @@ public class PersonaController {
     UpdatePersonaPort updatePersona;
     @Autowired
     DeletePersonaPort deletePersona;
+    @Autowired
+    IFeignServer feignServer;
 
     @PostMapping("/add")
     public PersonaOutputDTO addPersona(@Valid @RequestBody PersonaInputDTO personaIn) {
@@ -42,15 +45,19 @@ public class PersonaController {
 
     //Ejercicio RestTemplate y Feign/////////////////////////////////////////////////
     @GetMapping("/profesor/{id}")
-    public ProfesorOutputDTO getProfesor(@PathVariable("id")String id){
-        ResponseEntity<ProfesorOutputDTO> profesor = new RestTemplate().getForEntity(
-                "http://localhost:8081/profesor/" + id,
-                ProfesorOutputDTO.class
-        );
-        if (profesor.getStatusCode()== HttpStatus.OK)
-            return profesor.getBody();
-        throw new RuntimeException("The server didn't respond OK");
+    public ProfesorOutputDTO getProfesorRestTemplate(@PathVariable("id")String id){
+        //RestTemplate
+//        ResponseEntity<ProfesorOutputDTO> profesor = new RestTemplate().getForEntity(
+//                "http://localhost:8081/profesor/" + id,
+//                ProfesorOutputDTO.class
+//        );
+//        if (profesor.getStatusCode()== HttpStatus.OK)
+//            return profesor.getBody();
+//        throw new RuntimeException("The server didn't respond OK");
+        //Feign
+        return feignServer.getProfesorByFeign(id);
     }
+
     /////////////////////////////////////////////////////////////////////////////////
 
     @GetMapping("/{id}")
