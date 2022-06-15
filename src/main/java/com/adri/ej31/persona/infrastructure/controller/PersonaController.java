@@ -19,7 +19,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RequestMapping("/persona")
+//@RequestMapping("/persona")
 @RestController
 public class PersonaController {
     @Autowired
@@ -33,13 +33,14 @@ public class PersonaController {
     @Autowired
     IFeignServer feignServer;
 
-    @PostMapping("/add")
+    @CrossOrigin(origins="https://cdpn.io")
+    @PostMapping("/addperson")
     public PersonaOutputDTO addPersona(@Valid @RequestBody PersonaInputDTO personaIn) {
         return createPersona.addPersona(personaIn);
     }
 
     //Ejercicio RestTemplate y Feign/////////////////////////////////////////////////
-    @GetMapping("/profesor/{id}")
+    @GetMapping("/persona/profesor/{id}")
     public ProfesorOutputDTO getProfesorRestTemplate(@PathVariable("id")String id){
         //RestTemplate
 //        ResponseEntity<ProfesorOutputDTO> profesor = new RestTemplate().getForEntity(
@@ -55,7 +56,7 @@ public class PersonaController {
 
     /////////////////////////////////////////////////////////////////////////////////
 
-    @GetMapping("/{id}")
+    @GetMapping("/persona/{id}")
     public PersonaOutputDTO getPersonaById(
             @PathVariable("id") String id,
             @RequestParam(name = "rol", defaultValue = "persona")String rol
@@ -63,7 +64,7 @@ public class PersonaController {
         PersonaOutputDTO persona = getByRol(rol, readPersona.getPersonaById(id));
         return persona;
     }
-    @GetMapping("/nombre/{nombre}")
+    @GetMapping("/persona/nombre/{nombre}")
     public List<PersonaOutputDTO> getPersonaByName(
             @PathVariable("nombre") String nombre,
             @RequestParam(name = "rol", defaultValue = "persona")String rol
@@ -74,7 +75,8 @@ public class PersonaController {
                 );
         return personas;
     }
-    @GetMapping("/all")
+    @CrossOrigin(origins="https://cdpn.io")
+    @GetMapping("/getall")
     public List<PersonaOutputDTO> getPersonas(@RequestParam(name = "rol", defaultValue = "persona")String rol) {
         List<PersonaOutputDTO> personas = readPersona.getPersonas().stream()
                 .map(per -> getByRol(rol, per))
@@ -83,7 +85,7 @@ public class PersonaController {
         return personas;
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/persona/{id}")
     public PersonaOutputDTO updatePersonaById(
             @RequestBody PersonaInputDTO personaIn,
             @PathVariable("id")String id
@@ -91,7 +93,7 @@ public class PersonaController {
         return updatePersona.updatePersona(id, personaIn);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/persona/{id}")
     public void deletePersonaById(@PathVariable("id") String id) {
         deletePersona.deletePersona(id);
     }
