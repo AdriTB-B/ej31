@@ -105,11 +105,17 @@ public class PersonaController {
                 if(persona.getRolEstudiante() != null) return new PersonaEstudianteOutputDTO(persona);
                 else return new PersonaOutputDTO(persona);
             }
-            case "profesor": {
+            case "prof": {
                 if(persona.getRolProfesor() != null) return new PersonaProfesorOuputDTO(persona);
                 else return new PersonaOutputDTO(persona);
             }
             default: throw new IncorrectRolException(rol + " no es un rol válido. Opciones: persona/ estudiante/ profesor");
         }
+    }
+
+    //Prueba dev tools////////////////////
+    @GetMapping("/saludo")
+    public String saludo(){
+        return "Hola amigo";
     }
 }
