@@ -5,6 +5,8 @@ import com.adri.ej31.persona.application.port.ReadPersonaPort;
 import com.adri.ej31.persona.domain.PersonaEntity;
 import com.adri.ej31.persona.infrastructure.repository.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +26,11 @@ public class ReadPersonaUseCase implements ReadPersonaPort {
     @Override
     public List<PersonaEntity> getPersonaByName(String nombre) {
         return personaRepo.findByName(nombre);
+    }
+
+    @Override
+    public Page<PersonaEntity> getPersonasPageable(Pageable pageable) {
+        return personaRepo.findAll(pageable);
     }
 
     @Override
