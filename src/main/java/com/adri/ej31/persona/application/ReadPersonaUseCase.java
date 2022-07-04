@@ -13,9 +13,12 @@ import java.util.List;
 
 @Service
 public class ReadPersonaUseCase implements ReadPersonaPort {
-    @Autowired
-    PersonaRepository personaRepo;
 
+    private PersonaRepository personaRepo;
+    @Autowired
+    public ReadPersonaUseCase(PersonaRepository personaRepo){
+        this.personaRepo = personaRepo;
+    }
     @Override
     public PersonaEntity getPersonaById(String id) throws NotFoundException {
         PersonaEntity persona = personaRepo.findById(id)
