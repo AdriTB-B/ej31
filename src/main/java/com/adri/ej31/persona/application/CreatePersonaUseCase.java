@@ -10,8 +10,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CreatePersonaUseCase implements CreatePersonaPort {
+    private PersonaRepository repository;
     @Autowired
-    PersonaRepository repository;
+    public CreatePersonaUseCase(PersonaRepository repository){
+        this.repository = repository;
+    }
 
     @Override
     public PersonaOutputDTO addPersona(PersonaInputDTO personaIn){

@@ -1,5 +1,7 @@
 package com.adri.ej31.persona.infrastructure.dto.input;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
@@ -8,6 +10,8 @@ import javax.validation.constraints.Size;
 
 
 @Data
+@AllArgsConstructor
+@Builder
 public class PersonaInputDTO {
     @NotEmpty(message = "El usuario no puede estar vacío")
     @Size(min = 6, max = 10, message = "Debe tener mínimo 6 caracteres y máximo 10")
