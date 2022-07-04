@@ -26,7 +26,6 @@ class PersonaRepositoryTest {
         persona.setName(name);
         repo.save(persona);
         assertThat(repo.findByName(name)).isEqualTo(List.of(persona));
-
     }
 
     @Test

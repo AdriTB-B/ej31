@@ -31,7 +31,7 @@ class CreatePersonaUseCaseTest {
     @Test
     void addPersona_whenSavePersona_thenGetPersona() {
         //given
-        PersonaInputDTO persona = PersonaInputDTO
+        PersonaInputDTO personaIn = PersonaInputDTO
                 .builder()
                 .name("Name").city("city")
                 .company_email("test@test.com")
@@ -41,13 +41,12 @@ class CreatePersonaUseCaseTest {
                 .surname("Surname")
                 .build();
         //when
-        PersonaOutputDTO personaOut = underTest.addPersona(persona);
+        PersonaOutputDTO personaOut = underTest.addPersona(personaIn);
         //then
         ArgumentCaptor<PersonaEntity> personaArgCaptor = ArgumentCaptor.forClass(PersonaEntity.class);
         verify(personaRepo).save(personaArgCaptor.capture());
         PersonaEntity capturedPersona = personaArgCaptor.getValue();
-        assertThat(capturedPersona.getId_persona()).isEqualTo(personaOut.getId_persona());
-
+        assertThat(capturedPersona.getUsuario()).isEqualTo(personaOut.getUsuario());
 
     }
 }
