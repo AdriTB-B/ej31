@@ -19,6 +19,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.query.QueryUtils;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;
@@ -53,7 +54,7 @@ public class PersonaController {
     @Autowired
     IFeignServer feignServer;
 
-    @CrossOrigin(origins="https://cdpn.io")
+    @CrossOrigin(origins={"https://cdpn.io", "http://127.0.0.1:5500"})
     @PostMapping
     public PersonaOutputDTO addPersona(@Valid @RequestBody PersonaInputDTO personaIn) {
         return createPersona.addPersona(personaIn);
@@ -77,6 +78,7 @@ public class PersonaController {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //Ejercicio DBA1. Criteria//////////////////////////////////////////////////////////////////////////////////////////
+    @CrossOrigin(origins={"https://cdpn.io", "http://127.0.0.1:5500"})
     @GetMapping("/filter")
     public Page<PersonaOutputDTO> getFilteredPersonas(
             @RequestParam Map<String,String> allParams,
@@ -159,6 +161,7 @@ public class PersonaController {
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    @CrossOrigin(origins={"https://cdpn.io", "http://127.0.0.1:5500"})
     @GetMapping("/{id}")
     public PersonaOutputDTO getPersonaById(
             @PathVariable("id") String id,
@@ -167,6 +170,7 @@ public class PersonaController {
         PersonaOutputDTO persona = getByRol(rol, readPersona.getPersonaById(id));
         return persona;
     }
+    @CrossOrigin(origins={"https://cdpn.io", "http://127.0.0.1:5500"})
     @GetMapping("/nombre/{nombre}")
     public List<PersonaOutputDTO> getPersonaByName(
             @PathVariable("nombre") String nombre,
@@ -178,7 +182,7 @@ public class PersonaController {
                 );
         return personas;
     }
-    @CrossOrigin(origins="https://cdpn.io")
+    @CrossOrigin(origins={"https://cdpn.io", "http://127.0.0.1:5500"})
     @GetMapping
     public List<PersonaOutputDTO> getPersonas(@RequestParam(name = "rol", defaultValue = "persona")String rol) {
         List<PersonaOutputDTO> personas = readPersona.getPersonas().stream()
@@ -196,11 +200,13 @@ public class PersonaController {
         return updatePersona.updatePersona(id, personaIn);
     }
 
+    @CrossOrigin(origins={"https://cdpn.io", "http://127.0.0.1:5500"})
     @DeleteMapping("/{id}")
     public void deletePersonaById(@PathVariable("id") String id) {
         deletePersona.deletePersona(id);
     }
 
+    @CrossOrigin(origins={"https://cdpn.io", "http://127.0.0.1:5500"})
     private PersonaOutputDTO getByRol(String rol, PersonaEntity persona){
         switch (rol) {
             case "persona": return new PersonaOutputDTO(persona);
